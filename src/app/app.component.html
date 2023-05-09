@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <h1 class="navbar-brand">GIF Store</h1>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <button type="button" class="btn" [ngClass]="{'btn-primary': localStoreMode}" (click)="localStoreMode = true;imageCount = 0;loadData()">
+                Local Store <span *ngIf="imageCount>0" class="badge bg-secondary">{{ imageCount }}new</span>
+              </button>
+          </li>
+         
+          <li class="nav-item">
+            <button class="btn" [ngClass]="{'btn-primary': !localStoreMode}" (click)="localStoreMode = false">Online Store</button>
+          </li>
+          <li class="nav-item dropdown" *ngIf="localStoreMode">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Sort
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><button class="dropdown-item" (click)="sort('Oldest')">Date Added</button></li>
+                <li><hr class="dropdown-divider"></li>
+              <li><button class="dropdown-item" (click)="sort('Latest')">Latest</button></li>
+            </ul>
+          </li>
+          
+        </ul>
+        <div class="d-flex">
+          <input #searchText class="form-control me-2" type="text" placeholder="Search" aria-label="Search" >
+          <button class="btn btn-outline-success" (click)="search(searchText.value)">Search</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<app-search-giphy [storedImages]="storedImages" [localStore]="localStoreMode" [imageCount]="storedImages.length"></app-search-giphy>

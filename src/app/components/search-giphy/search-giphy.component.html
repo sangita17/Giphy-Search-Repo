@@ -1,0 +1,34 @@
+
+<div style="margin-top: 30px;">
+<h1 class="text-center"  *ngIf="!(giphyService.searchResults$ | async) && !localStore" >Search GIF Online</h1>
+<ng-container *ngIf="(giphyService.searchResults$ | async)  && !localStore">
+  <h1 class="text-center" >Search Results</h1>
+  <h4 class="text-center" >Hover GIF and Press Add to save in local Store</h4>
+</ng-container>
+<ng-container *ngIf="localStore">
+  <h1 class="text-center">Your Local Store <span class="badge bg-secondary">{{imageCount}} - GIF(s)</span></h1>
+  <h4 class="text-center" >Hover GIF and Press Download to save GIF</h4>
+</ng-container>
+</div>
+
+<div class="loading" *ngIf="giphyService.loading$ | async"></div>
+  <div class="result-panel" *ngIf="!localStore">
+    <div *ngFor="let result of giphyService.searchResults$ | async" 
+          class="flex justify-center flex-col w-full h-full shadow rounded bg-gray-300">
+          <div class="container">
+            <img [src]="result.images.fixed_width.url" [alt]="result.title">
+            <div class="overlay"></div>
+            <div class="button"><button (click)="addToStore(result.images.fixed_width.url,result.id,result.title)"> + ADD </button></div>
+          </div>
+    </div>
+  </div>
+  <div class="result-panel"  *ngIf="localStore">
+    <div *ngFor="let result of storedImages" 
+          class="flex justify-center flex-col w-full h-full shadow rounded bg-gray-300">
+          <div class="container">
+            <img [src]="result.url" [alt]="result.id">
+            <div class="overlay"></div>
+            <div class="button"><button (click)="saveImage(result.url,result.id)"> Download </button></div>
+          </div>
+    </div>
+  </div>

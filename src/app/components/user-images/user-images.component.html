@@ -1,0 +1,14 @@
+
+  
+  <div class="result-panel">
+    <!-- <div class = "panel"> -->
+    <div *ngFor="let result of storedImages" 
+          class="flex justify-center flex-col w-full h-full shadow rounded bg-gray-300">
+          <div class="container">
+            <img [src]="result.url" [alt]="result.id">
+            <div class="overlay"></div>
+            <div class="button"><button (click)="saveImage(result.url,result.id)"> Download </button></div>
+          </div>
+    </div>
+</div>
+  <!-- </div> -->
